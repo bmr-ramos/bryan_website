@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import SplashScreen from './Main/Homescreen/Splashscreen';
+// import BackgroundShapes from './Main/Homescreen/BackgroundShapes';
+import HomeScreen from './Main/Homescreen/Homescreen';
+import Header from './Main/Homescreen/Header';
 import './App.css';
+import './index.css';
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [isSplashScreenGone, setIsSplashScreenGone] = useState(false);
+
+  const handleContinue = () => {
+    setShowSplash(false);
+    setTimeout(() => {
+      setIsSplashScreenGone(true);
+    }, 500);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <BackgroundShapes /> */}
+      <Header />
+      <HomeScreen showSplash={showSplash} isSplashScreenGone={isSplashScreenGone} />
+      {showSplash && <SplashScreen onContinue={handleContinue} />}
     </div>
   );
 }
