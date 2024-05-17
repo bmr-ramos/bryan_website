@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SplashScreen from './Main/Homescreen/Splashscreen';
-// import BackgroundShapes from './Main/Homescreen/BackgroundShapes';
 import HomeScreen from './Main/Homescreen/Homescreen';
 import Header from './Main/Homescreen/Header';
+import Footer from './Main/Homescreen/Footer/Footer';
+import { gsap } from 'gsap';
 import './App.css';
 import './index.css';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [isSplashScreenGone, setIsSplashScreenGone] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [isContentMoved, setIsContentMoved] = useState(false);
+  const [unsplashData, setUnsplashData] = useState(null);
+  const backgroundRef = useRef(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/random-image')
+      .then(response => response.json())
+      .then(data => {
+        const imageUrl = data.urls.full;
+        document.getElementById('blurred-background').style.backgroundImage = `url(${imageUrl})`;
+        document.getElementById('background-container').style.backgroundImage = `url(${imageUrl})`;
+        setUnsplashData(data);
+      })
+      .catch(error => console.error('Error fetching Unsplash image:', error));
+  }, []);
 
   const handleContinue = () => {
     setShowSplash(false);
@@ -17,13 +34,32 @@ function App() {
     }, 500);
   };
 
+  const toggleFooterVisibility = () => {
+    setIsFooterVisible(true); // Ensure footer is always visible after the first click
+    setIsContentMoved(!isContentMoved);
+    if (!isContentMoved) {
+      gsap.to(backgroundRef.current, { y: -200, duration: 0.5, ease: 'power2.inOut' });
+    } else {
+      gsap.to(backgroundRef.current, { y: 0, duration: 0.5, ease: 'power2.inOut' });
+    }
+  };
+
   return (
-    <div className="App">
-      {/* <BackgroundShapes /> */}
-      <Header />
-      <HomeScreen showSplash={showSplash} isSplashScreenGone={isSplashScreenGone} />
-      {showSplash && <SplashScreen onContinue={handleContinue} />}
-    </div>
+    <>
+      <div id="background-container" ref={backgroundRef}>
+        <Header />
+        <HomeScreen 
+          showSplash={showSplash} 
+          isSplashScreenGone={isSplashScreenGone} 
+          toggleFooterVisibility={toggleFooterVisibility} // Pass the function as a prop
+        />
+        {showSplash && <SplashScreen onContinue={handleContinue} />}
+      </div>
+
+      <div id="blurred-background">
+        {isFooterVisible && <Footer unsplashData={unsplashData} />}
+      </div>
+    </>
   );
 }
 

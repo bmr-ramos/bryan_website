@@ -1,0 +1,26 @@
+#footer {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the content vertically */
+}
+
+.footer-title {
+  color: #ffffff; /* Bright white color for the title */
+}
+
+.footer-text {
+  color: #d3d3d3ca; /* Grayish white color for regular text */
+}
+
+.glow-hover {
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+  color: #ffffff; /* Bright white for links */
+}
+
+/* Remove any existing hover styles */
+.glow-hover:hover {
+  text-shadow: none;
+}

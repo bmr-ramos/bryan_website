@@ -37,4 +37,5 @@
     justify-content: center;
     backdrop-filter: blur(60px);
     -webkit-backdrop-filter: blur(60px);
+    background-color: rgba(41, 40, 40, 0.216);
 }

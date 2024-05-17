@@ -26,7 +26,7 @@ function Header() {
 
   return (
     <div className="flex justify-between items-center p-2.5 bg-custom-gray bg-opacity-50 backdrop-blur-xl fixed w-full z-50 border-b border-custom-gray">
-      <div className="text-2xl font-bold text-white mx-5 whitespace-nowrap">Bryan Ramos ♛</div>
+      <div className="text-2xl font-bold text-white mx-2 whitespace-nowrap">The Experience ♛</div>
       
       {/* Navigation links */}
       <div className={`${isMobile ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'} transition-opacity duration-300 ease-in-out md:flex flex-row hidden`}>
@@ -37,7 +37,11 @@ function Header() {
       </div>
 
       {/* Hamburger menu button */}
-      <button className={`${isMobile ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'} transition-opacity duration-300 ease-in-out md:hidden text-white text-2xl`} onClick={toggleMenu}>
+      <button 
+        className={`${isMobile ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'} transition-opacity duration-300 ease-in-out md:hidden text-white text-2xl flex items-center justify-center`}
+        style={{ height: '40px', width: '40px' }}  // Ensure the button has a fixed size
+        onClick={toggleMenu}
+      >
         {isMenuOpen
           ? <ion-icon name="close" style={{ fontSize: '30px' }}></ion-icon>
           : <ion-icon name="menu" style={{ fontSize: '30px' }}></ion-icon>

@@ -8,15 +8,16 @@
   <meta name="description" content="Web site created using create-react-app" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="stylesheet" href="../src/index.css" /> <!-- Update this path to your CSS file -->
+  <link rel="stylesheet" href="%PUBLIC_URL%/index.css" />
 
-  <title>Bryan Ramos</title>
+  <title>The Experience</title>
 </head>
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="blurred-background"></div>
   <div id="root"></div>
 
-  <!-- Unsplash Scripts -->
+  <!-- Unsplash Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       fetch('http://localhost:3001/random-image')
@@ -28,13 +29,24 @@
         })
         .then(data => {
           const imageUrl = data.urls.full;
-          document.body.style.backgroundImage = `url(${imageUrl})`;
+          console.log("Fetched image URL: ", imageUrl); // Log the URL
+          
+          const blurredBackground = document.getElementById('blurred-background');
+          const backgroundContainer = document.getElementById('background-container');
+          
+          console.log("Blurred Background Element: ", blurredBackground);
+          console.log("Background Container Element: ", backgroundContainer);
 
-          // Add attribution
-          const attribution = document.createElement('div');
-          attribution.className = 'attribution';
-          attribution.innerHTML = `Photo by <a href="${data.user.links.html}?utm_source=Bryan_Website&utm_medium=referral" target="_blank">${data.user.name}</a> on <a href="https://unsplash.com/?utm_source=Bryan_Website&utm_medium=referral" target="_blank">Unsplash</a>`;
-          document.body.appendChild(attribution);
+          blurredBackground.style.backgroundImage = `url(${imageUrl})`;
+          backgroundContainer.style.backgroundImage = `url(${imageUrl})`;
+          
+          // Force reapplication of CSS properties
+          setTimeout(() => {
+            blurredBackground.classList.add('update-blur');
+            backgroundContainer.classList.add('update-background');
+          }, 100);
+          
+          window.unsplashData = data; // Store the data globally
         })
         .catch(error => console.error('Error fetching Unsplash image:', error));
     });
