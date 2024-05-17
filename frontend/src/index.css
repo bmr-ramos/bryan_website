@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  background-size: cover;  /* Cover the entire page */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+.font-cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+.attribution {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 5px;
+  backdrop-filter: blur(20px);
+  pointer-events: auto;
+  z-index: 1;
+}
+.attribution a {
+  color: white;
+  text-decoration: underline;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Add more global styles as needed */

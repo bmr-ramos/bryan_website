@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="stylesheet" href="../src/index.css" /> <!-- Update this path to your CSS file -->
+
+  <title>Bryan Ramos</title>
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+
+  <!-- Unsplash Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('http://localhost:3001/random-image')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const imageUrl = data.urls.full;
+          document.body.style.backgroundImage = `url(${imageUrl})`;
+
+          // Add attribution
+          const attribution = document.createElement('div');
+          attribution.className = 'attribution';
+          attribution.innerHTML = `Photo by <a href="${data.user.links.html}?utm_source=Bryan_Website&utm_medium=referral" target="_blank">${data.user.name}</a> on <a href="https://unsplash.com/?utm_source=Bryan_Website&utm_medium=referral" target="_blank">Unsplash</a>`;
+          document.body.appendChild(attribution);
+        })
+        .catch(error => console.error('Error fetching Unsplash image:', error));
+    });
+  </script>
+
+  <!-- Ionicons Scripts -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
