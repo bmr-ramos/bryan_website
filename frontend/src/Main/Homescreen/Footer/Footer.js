@@ -12,7 +12,7 @@ function Footer({ unsplashData }) {
       <div className="text-center space-y-4">
         <p className="text-md font-semibold footer-title">Built from scratch, made with passion, powered with love.</p>
         <p className="text-sm footer-text">
-          Designed in <GlowingLink href="https://www.figma.com/">Figma</GlowingLink> and brought to life in <GlowingLink href="https://code.visualstudio.com/">Visual Studio Code</GlowingLink>. Powered using <GlowingLink href="https://reactjs.org/">React.js</GlowingLink>, <GlowingLink href="https://tailwindcss.com/">Tailwind CSS</GlowingLink>, and <GlowingLink href="https://greensock.com/gsap/">GSAP</GlowingLink>.
+          Designed in <GlowingLink href="https://www.figma.com/">Figma</GlowingLink> and brought to life in <GlowingLink href="https://code.visualstudio.com/">Visual Studio Code</GlowingLink>. Powered by <GlowingLink href="https://reactjs.org/">React.js</GlowingLink>, <GlowingLink href="https://tailwindcss.com/">Tailwind CSS</GlowingLink>, and <GlowingLink href="https://greensock.com/gsap/">GSAP</GlowingLink>.
         </p>
         {unsplashData ? (
           <p className="text-sm footer-text">

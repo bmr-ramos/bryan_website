@@ -20,7 +20,7 @@ const projectsButtons = [
   { title: "Project 3", icon: "bug-outline" }
 ];
 
-function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility }) {
+function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, closeFooter }) {
   const contentRef = useRef(null);
   const iconsRef = useRef([]);
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -53,6 +53,7 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility }) 
   }, [isSplashScreenGone]);
 
   const handleIconClick = (icon) => {
+    closeFooter(); // Close the footer if it's visible
     setSelectedIcon(icon);
 
     // Set button data based on the selected icon

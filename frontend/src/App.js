@@ -35,12 +35,28 @@ function App() {
   };
 
   const toggleFooterVisibility = () => {
-    setIsFooterVisible(true); // Ensure footer is always visible after the first click
-    setIsContentMoved(!isContentMoved);
     if (!isContentMoved) {
+      setIsFooterVisible(true);
+      setIsContentMoved(true);
       gsap.to(backgroundRef.current, { y: -200, duration: 0.5, ease: 'power2.inOut' });
     } else {
-      gsap.to(backgroundRef.current, { y: 0, duration: 0.5, ease: 'power2.inOut' });
+      setIsContentMoved(false);
+      gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
+      // Delay hiding the footer to ensure the animation completes
+      setTimeout(() => {
+        setIsFooterVisible(false);
+      }, 700);
+    }
+  };
+
+  const closeFooter = () => {
+    if (isContentMoved) {
+      setIsContentMoved(false);
+      gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
+      // Delay hiding the footer to ensure the animation completes
+      setTimeout(() => {
+        setIsFooterVisible(false);
+      }, 700);
     }
   };
 
@@ -51,7 +67,8 @@ function App() {
         <HomeScreen 
           showSplash={showSplash} 
           isSplashScreenGone={isSplashScreenGone} 
-          toggleFooterVisibility={toggleFooterVisibility} // Pass the function as a prop
+          toggleFooterVisibility={toggleFooterVisibility}
+          closeFooter={closeFooter}
         />
         {showSplash && <SplashScreen onContinue={handleContinue} />}
       </div>
