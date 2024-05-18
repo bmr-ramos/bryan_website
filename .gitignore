@@ -1,0 +1,12 @@
+# Ignore environment variables
+.env
+
+# Ignore node_modules
+node_modules/
+
+# Ignore build outputs
+build/
+dist/
+
+# Ignore other files/folders
+.DS_Store
