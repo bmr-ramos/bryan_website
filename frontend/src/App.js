@@ -19,7 +19,9 @@ function App() {
   const backgroundRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/random-image')
+    const API_URL = 'https://bryan-website-one.vercel.app/random-image';
+
+    fetch(API_URL)
       .then(response => response.json())
       .then(data => {
         const imageUrl = data.urls.full;
@@ -65,7 +67,8 @@ function App() {
   const closeFooter = () => {
     if (isContentMoved) {
       setIsContentMoved(false);
-      gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
+      // gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
+      gsap.to(backgroundRef.current, {y: 0, duration: 0.5, ease: 'power2.inOut'});
       setTimeout(() => {
         setIsFooterVisible(false);
       }, 700);
