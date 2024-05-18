@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import SplashScreen from './Main/Homescreen/Splashscreen';
-import HomeScreen from './Main/Homescreen/Homescreen';
-import Header from './Main/Homescreen/Header';
+import SplashScreen from './Main/Homescreen/Splashscreen/Splashscreen';
+import HomeScreen from './Main/Homescreen/Homescreen/Homescreen';
+import HomeScreenMobile from './Main/Homescreen/Homescreen/HomescreenMobile';
+import Header from './Main/Homescreen/Header/Header';
+import HeaderMobile from './Main/Homescreen/Header/HeaderMobile';
 import Footer from './Main/Homescreen/Footer/Footer';
 import { gsap } from 'gsap';
 import './App.css';
@@ -13,6 +15,7 @@ function App() {
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isContentMoved, setIsContentMoved] = useState(false);
   const [unsplashData, setUnsplashData] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const backgroundRef = useRef(null);
 
   useEffect(() => {
@@ -25,6 +28,17 @@ function App() {
         setUnsplashData(data);
       })
       .catch(error => console.error('Error fetching Unsplash image:', error));
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const handleContinue = () => {
@@ -41,8 +55,7 @@ function App() {
       gsap.to(backgroundRef.current, { y: -200, duration: 0.5, ease: 'power2.inOut' });
     } else {
       setIsContentMoved(false);
-      gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
-      // Delay hiding the footer to ensure the animation completes
+      gsap.to(backgroundRef.current, { y: 0, duration: 0.5, ease: 'power2.inOut' });
       setTimeout(() => {
         setIsFooterVisible(false);
       }, 700);
@@ -53,7 +66,6 @@ function App() {
     if (isContentMoved) {
       setIsContentMoved(false);
       gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
-      // Delay hiding the footer to ensure the animation completes
       setTimeout(() => {
         setIsFooterVisible(false);
       }, 700);
@@ -63,13 +75,29 @@ function App() {
   return (
     <>
       <div id="background-container" ref={backgroundRef}>
-        <Header />
-        <HomeScreen 
-          showSplash={showSplash} 
-          isSplashScreenGone={isSplashScreenGone} 
-          toggleFooterVisibility={toggleFooterVisibility}
-          closeFooter={closeFooter}
-        />
+        {isSplashScreenGone && (isMobile 
+          ? <HeaderMobile 
+              isSplashScreenGone={isSplashScreenGone} 
+            /> 
+          : <Header 
+            isSplashScreenGone={isSplashScreenGone} 
+            />
+        )}
+        
+        {isMobile
+          ? <HomeScreenMobile
+              showSplash={showSplash} 
+              isSplashScreenGone={isSplashScreenGone} 
+              toggleFooterVisibility={toggleFooterVisibility}
+              closeFooter={closeFooter}
+            />
+          : <HomeScreen
+              showSplash={showSplash} 
+              isSplashScreenGone={isSplashScreenGone} 
+              toggleFooterVisibility={toggleFooterVisibility}
+              closeFooter={closeFooter}
+            />
+        }
         {showSplash && <SplashScreen onContinue={handleContinue} />}
       </div>
 

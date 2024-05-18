@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import SmallAppIcon from '../App Icons/SmallAppIcon';
-import OverlayWindow from './Overlay/OverlayWindow';
+import SmallAppIcon from '../../App Icons/SmallAppIcon';
+import OverlayWindow from '../Overlay/OverlayWindow';
+import HomescreenMobile from './HomescreenMobile';
 
 const aboutMeButtons = [
   { title: "Info", icon: "information-circle-outline" },
@@ -25,9 +26,22 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
   const iconsRef = useRef([]);
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [buttonData, setButtonData] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-    if (isSplashScreenGone) {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isSplashScreenGone && !isMobile) {
       gsap.fromTo(contentRef.current, 
         { opacity: 0 }, 
         { duration: 0.5, opacity: 1, ease: 'power2.inOut' }
@@ -44,9 +58,8 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
           stagger: 0.1 // Stagger animation by 0.1 seconds for each icon
         }
       );
-
     }
-  }, [isSplashScreenGone]);
+  }, [isSplashScreenGone, isMobile]);
 
   const handleIconClick = (icon) => {
     closeFooter(); // Close the footer if it's visible
@@ -72,6 +85,10 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
     setSelectedIcon(null);
     setButtonData([]);
   };
+
+  if (isMobile) {
+    return <HomescreenMobile showSplash={showSplash} isSplashScreenGone={isSplashScreenGone} toggleFooterVisibility={toggleFooterVisibility} closeFooter={closeFooter} />;
+  }
 
   return (
     <div ref={contentRef} className="pt-16 mx-auto opacity-0 flex flex-col items-center justify-center min-h-screen">
