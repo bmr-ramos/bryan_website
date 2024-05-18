@@ -25,7 +25,6 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
   const iconsRef = useRef([]);
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [buttonData, setButtonData] = useState([]);
-  const [unsplashData, setUnsplashData] = useState(null);
 
   useEffect(() => {
     if (isSplashScreenGone) {
@@ -46,9 +45,6 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
         }
       );
 
-      if (window.unsplashData) {
-        setUnsplashData(window.unsplashData);
-      }
     }
   }, [isSplashScreenGone]);
 
