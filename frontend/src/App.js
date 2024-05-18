@@ -67,8 +67,7 @@ function App() {
   const closeFooter = () => {
     if (isContentMoved) {
       setIsContentMoved(false);
-      // gsap.to(backgroundRef.current, { y: 0, duration: 0.7, ease: 'bounce.out' });
-      gsap.to(backgroundRef.current, {y: 0, duration: 0.5, ease: 'power2.inOut'});
+      gsap.to(backgroundRef.current, { y: 0, duration: 0.5, ease: 'power2.inOut' });
       setTimeout(() => {
         setIsFooterVisible(false);
       }, 700);
@@ -79,12 +78,8 @@ function App() {
     <>
       <div id="background-container" ref={backgroundRef}>
         {isSplashScreenGone && (isMobile 
-          ? <HeaderMobile 
-              isSplashScreenGone={isSplashScreenGone} 
-            /> 
-          : <Header 
-            isSplashScreenGone={isSplashScreenGone} 
-            />
+          ? <HeaderMobile isSplashScreenGone={isSplashScreenGone} /> 
+          : <Header isSplashScreenGone={isSplashScreenGone} />
         )}
         
         {isMobile

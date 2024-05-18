@@ -2,13 +2,17 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const { getRandomImage } = require('./Unsplash API/unsplash'); // Import the Unsplash module
+const { getRandomImage } = require('./Unsplash API/unsplash');
 
 const app = express();
 const port = process.env.PORT || 5001;
 
 const corsOptions = {
-  origin: 'https://bryan-website-one.vercel.app', // Replace this with your actual frontend URL
+  origin: [
+    'https://bryan-website-one.vercel.app',
+    'https://bryan-website-git-master-theninjaeagles-projects.vercel.app',
+    'https://bryan-website-m1o9ixr29-theninjaeagles-projects.vercel.app'
+  ],
   optionsSuccessStatus: 200
 };
 
