@@ -15,6 +15,7 @@ install:
 
 clean:
 	rm -rf $(FRONTEND_DIR)/node_modules
+	rm -rf $(FRONTEND_DIR)/build
 	rm -rf $(BACKEND_DIR)/node_modules
 
 restart: clean install start
