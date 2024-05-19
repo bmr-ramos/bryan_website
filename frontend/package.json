@@ -24,12 +24,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "vercel-build": "npm run build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "npm start --prefix frontend",
-    "dev:backend": "npm start --prefix backend"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
