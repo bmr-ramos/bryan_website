@@ -1,7 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import OverlayToolbar from './OverlayToolbar';
 import useOverlayAnimations from './useOverlayAnimations';
-import useEventHandlers from './useEventHandlers';
 
 function OverlayWindow({ title, onClose, buttonData }) {
   const overlayRef = useRef(null);
@@ -14,7 +13,21 @@ function OverlayWindow({ title, onClose, buttonData }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEventHandlers(setIsMobile, setIsMenuOpen);
+  useEffect(() => {
+    const handleResize = () => {
+      const mobileView = window.innerWidth < 768;
+      setIsMobile(mobileView);
+
+      if (!mobileView) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const { handleClose, handleMaximize } = useOverlayAnimations(
     backgroundRef,

@@ -21,7 +21,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgb(58, 58, 58); /* Fallback color */
+  /* background-color: rgb(58, 58, 58); */
   z-index: 0;
 }
 

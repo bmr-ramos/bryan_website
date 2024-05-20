@@ -19,8 +19,10 @@ function App() {
   const backgroundRef = useRef(null);
 
   useEffect(() => {
-    const API_URL = 'https://bryan-website-red.vercel.app/random-image';
-
+    const API_URL = process.env.NODE_ENV === 'production'
+      ? 'https://bryan-website-red.vercel.app/random-image'
+      : 'http://localhost:5001/random-image';
+  
     fetch(API_URL)
       .then(response => response.json())
       .then(data => {
@@ -30,7 +32,7 @@ function App() {
         setUnsplashData(data);
       })
       .catch(error => console.error('Error fetching Unsplash image:', error));
-  }, []);
+  }, []);  
 
   useEffect(() => {
     const handleResize = () => {

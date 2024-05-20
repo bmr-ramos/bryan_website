@@ -19,7 +19,9 @@
   <!-- Unsplash Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const API_URL = 'https://bryan-website-red.vercel.app/random-image';
+      const API_URL = window.location.hostname === 'localhost'
+        ? 'http://localhost:5001/random-image'
+        : 'https://bryan-website-red.vercel.app/random-image';
 
       fetch(API_URL)
         .then(response => {

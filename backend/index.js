@@ -10,10 +10,10 @@ const port = process.env.PORT || 5001;
 const corsOptions = {
   origin: [
     'https://bryan-website-red.vercel.app',
+    'http://localhost:3000',
   ],
   optionsSuccessStatus: 200
 };
-
 
 app.use(cors(corsOptions));
 
