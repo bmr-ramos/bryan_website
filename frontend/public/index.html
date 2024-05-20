@@ -19,7 +19,7 @@
   <!-- Unsplash Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const API_URL = 'https://bryan-website-one.vercel.app/random-image';
+      const API_URL = 'https://bryan-website-red.vercel.app/random-image';
 
       fetch(API_URL)
         .then(response => {
@@ -40,12 +40,6 @@
 
           blurredBackground.style.backgroundImage = `url(${imageUrl})`;
           backgroundContainer.style.backgroundImage = `url(${imageUrl})`;
-          
-          // Force reapplication of CSS properties
-          setTimeout(() => {
-            blurredBackground.classList.add('update-blur');
-            backgroundContainer.classList.add('update-background');
-          }, 100);
           
           window.unsplashData = data; // Store the data globally
         })

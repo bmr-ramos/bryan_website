@@ -19,7 +19,7 @@ function App() {
   const backgroundRef = useRef(null);
 
   useEffect(() => {
-    const API_URL = 'https://bryan-website-one.vercel.app/random-image';
+    const API_URL = 'https://bryan-website-red.vercel.app/random-image';
 
     fetch(API_URL)
       .then(response => response.json())
