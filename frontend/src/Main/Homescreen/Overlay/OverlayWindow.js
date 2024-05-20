@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import OverlayToolbar from './OverlayToolbar';
 import useOverlayAnimations from './useOverlayAnimations';
+import { gsap } from 'gsap';
 
 function OverlayWindow({ title, onClose, buttonData }) {
   const overlayRef = useRef(null);
@@ -29,7 +30,54 @@ function OverlayWindow({ title, onClose, buttonData }) {
     };
   }, []);
 
-  const { handleClose, handleMaximize } = useOverlayAnimations(
+  useEffect(() => {
+    if (overlayRef.current && backgroundRef.current && hamburgerButtonRef.current) {
+      gsap.fromTo(
+        backgroundRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: 'power2.inOut' }
+      );
+
+      gsap.fromTo(
+        overlayRef.current,
+        { opacity: 0, scale: 0.8, filter: 'blur(10px)' },
+        { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.inOut' }
+      );
+
+      gsap.fromTo(
+        hamburgerButtonRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: 'power2.inOut', delay: 0.2 }
+      );
+    }
+  }, []);
+
+  const handleClose = () => {
+    if (overlayRef.current && backgroundRef.current && hamburgerButtonRef.current) {
+      gsap.to(hamburgerButtonRef.current, {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.inOut'
+      });
+
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        filter: 'blur(40px)',
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: onClose
+      });
+
+      gsap.to(backgroundRef.current, {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.inOut'
+      });
+    }
+  };
+
+  const { handleClose: handleOverlayClose, handleMaximize } = useOverlayAnimations(
     backgroundRef,
     overlayRef,
     toolbarRef,
@@ -52,7 +100,7 @@ function OverlayWindow({ title, onClose, buttonData }) {
         <div ref={overlayRef} className={containerClassNames}>
           <div className="absolute top-4 left-4 flex space-x-2">
             <button
-              onClick={handleClose}
+              onClick={handleOverlayClose}
               className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}

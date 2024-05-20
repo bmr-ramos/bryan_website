@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { gsap } from 'gsap';
-import OverlayWindow from '../Overlay/OverlayWindow';
+import OverlayWindowMobile from '../Overlay/OverlayWindowMobile';
 
 const aboutMeButtons = [
   { title: "Info", icon: "information-circle-outline" },
@@ -87,6 +87,20 @@ function HomescreenMobile({ showSplash, isSplashScreenGone, toggleFooterVisibili
     { title: "Settings", iconName: "cog", iconType: "ionicon" },
   ];
 
+  useEffect(() => {
+    iconsRef.current.forEach((icon) => {
+      if (icon) {
+        icon.addEventListener('mouseenter', () => {
+          gsap.to(icon, { scale: 1.05, duration: 0.3, ease: 'power2.inOut' });
+        });
+
+        icon.addEventListener('mouseleave', () => {
+          gsap.to(icon, { scale: 1, duration: 0.3, ease: 'power2.inOut' });
+        });
+      }
+    });
+  }, [iconsRef.current]);
+
   return (
     <div ref={contentRef} className="pt-16 mx-auto flex flex-col items-center justify-center min-h-screen px-4 opacity-0">
       <div className="w-full space-y-4">
@@ -94,7 +108,7 @@ function HomescreenMobile({ showSplash, isSplashScreenGone, toggleFooterVisibili
           <div
             key={index}
             ref={el => iconsRef.current[index] = el}
-            className="group flex items-center p-4 backdrop-blur-2xl bg-black bg-opacity-20 rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105"
+            className="group flex items-center p-4 backdrop-blur-2xl bg-black bg-opacity-20 rounded-lg transform transition-transform duration-300 ease-in-out"
             onClick={() => handleIconClick(icon.title)}
           >
             <ion-icon name={icon.iconName} style={{ fontSize: '40px', color: 'white' }}></ion-icon>
@@ -104,7 +118,7 @@ function HomescreenMobile({ showSplash, isSplashScreenGone, toggleFooterVisibili
       </div>
 
       {selectedIcon && (
-        <OverlayWindow
+        <OverlayWindowMobile
           title={selectedIcon}
           buttonData={buttonData}
           onClose={handleClose}
