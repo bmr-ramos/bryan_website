@@ -17,6 +17,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+// Test route
+app.get('/test', (req, res) => {
+  res.send('Backend is running!');
+});
+
 app.get('/random-image', async (req, res) => {
   try {
     const imageData = await getRandomImage();
