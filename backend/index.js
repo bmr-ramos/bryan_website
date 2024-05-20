@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const { getRandomImage } = require('./Unsplash API/unsplash');
+const { getRandomImage } = require('./Unsplash/unsplash');
 
 const app = express();
 const port = process.env.PORT || 5001;
