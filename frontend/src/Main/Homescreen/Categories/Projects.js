@@ -1,10 +1,17 @@
+// Projects.js
 import React from 'react';
+
+export const projectsButtons = [
+  { title: "Project 1", icon: "code-outline" },
+  { title: "Project 2", icon: "rocket-outline" },
+  { title: "Project 3", icon: "bug-outline" }
+];
 
 function Projects() {
   return (
-    <div className="bg-black text-white p-8">
-      <h2 className="text-5xl font-bold mb-4">Projects</h2>
-      <p className="text-xl">Showcase of your projects, highlighting key achievements and technologies used.</p>
+    <div className="projects-content p-8 bg-transparent">
+      <h2 className="text-4xl font-bold text-white">Projects</h2>
+      {/* Add your projects content here */}
     </div>
   );
 }

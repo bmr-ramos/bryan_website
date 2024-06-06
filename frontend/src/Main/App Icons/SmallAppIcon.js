@@ -1,5 +1,5 @@
 import React from 'react';
-import './Outline.css'; // Ensure this is the correct path to your CSS file
+import './Outline.css';
 
 function SmallAppIcon({ title, iconSrc, iconName, iconType, iconClassName, onClick }) {
   return (

@@ -24,7 +24,7 @@ function HomescreenMobile({ showSplash, isSplashScreenGone, toggleFooterVisibili
   const [buttonData, setButtonData] = useState([]);
   const contentRef = useRef(null);
   const iconsRef = useRef([]);
-  
+
   // Ensure iconsRef is an array of correct length
   if (!iconsRef.current) {
     iconsRef.current = [];
@@ -102,8 +102,8 @@ function HomescreenMobile({ showSplash, isSplashScreenGone, toggleFooterVisibili
   }, [iconsRef.current]);
 
   return (
-    <div ref={contentRef} className="pt-16 mx-auto flex flex-col items-center justify-center min-h-screen px-4 opacity-0">
-      <div className="w-full space-y-4">
+    <div ref={contentRef} className="pt-16 mx-auto flex flex-col items-center justify-start min-h-screen px-4 opacity-0">
+      <div className="w-full space-y-4 mt-4"> {/* Adjust mt-4 for spacing from header */}
         {icons.map((icon, index) => (
           <div
             key={index}

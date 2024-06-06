@@ -32,7 +32,7 @@ const OverlayToolbar = forwardRef(({ buttonData }, ref) => {
       ref={ref}
       className={`absolute left-2 top-1/2 transform -translate-y-1/2 ${
         isHovered ? 'w-40' : 'w-14'
-      } bg-custom-gray bg-opacity-50 backdrop-blur-3xl flex flex-col justify-center items-start p-2 z-40 transition-all duration-300 shadow-lg`} // Added shadow class
+      } bg-white bg-opacity-20 backdrop-blur-3xl flex flex-col justify-center items-start p-2 z-40 transition-all duration-300 shadow-lg`} // Added shadow class
       style={{ height: `${toolbarHeight}px`, borderRadius: '32px' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

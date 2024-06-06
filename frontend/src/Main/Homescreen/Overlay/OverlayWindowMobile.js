@@ -1,5 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import AboutMe from '../Categories/AboutMe';
+import Experience from '../Categories/Experience';
+import Projects from '../Categories/Projects';
 
 function OverlayWindowMobile({ title, onClose, buttonData }) {
   const overlayRef = useRef(null);
@@ -30,7 +33,7 @@ function OverlayWindowMobile({ title, onClose, buttonData }) {
 
       gsap.fromTo(
         overlayRef.current,
-        { opacity: 0, scale: 0.8, filter: 'blur(10px)' },
+        { opacity: 0, scale: 0.8, filter: 'blur(40px)' },
         { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.inOut' }
       );
 
@@ -67,7 +70,20 @@ function OverlayWindowMobile({ title, onClose, buttonData }) {
     }
   };
 
-  const containerClassNames = `fixed inset-0 bg-custom-gray bg-opacity-50 backdrop-blur-3xl w-full h-full flex flex-col overflow-auto relative p-8`;
+  const renderContent = () => {
+    switch (title) {
+      case 'About Me':
+        return <AboutMe />;
+      case 'Experience':
+        return <Experience />;
+      case 'Projects':
+        return <Projects />;
+      default:
+        return <div>Content not found</div>;
+    }
+  };
+
+  const containerClassNames = `fixed inset-0 bg-white bg-opacity-20 backdrop-blur-3xl w-full h-full flex flex-col overflow-auto relative p-8`;
 
   return (
     <div>
@@ -77,21 +93,27 @@ function OverlayWindowMobile({ title, onClose, buttonData }) {
           <div className="absolute top-4 right-4 flex space-x-2">
             <button
               onClick={handleClose}
-              className="w-12 h-6 bg-red-500 rounded-full flex items-center justify-center"
+              className="w-12 h-12 bg-white bg-opacity-15 backdrop-blur-md rounded-full flex items-center justify-center"
             >
-              <ion-icon name="close" className="text-white text-xs"></ion-icon>
+              <ion-icon 
+                name="close"
+                style={{ fontSize: '28px', color: 'white' }}
+              ></ion-icon>
             </button>
           </div>
           <div style={{ height: '50px' }}></div>
           <h2 className="text-4xl font-bold mb-8 text-white text-left">{title}</h2>
           <div className="overflow-y-auto p-4 flex-grow">
-            {/* Add your scrollable content here */}
+            {renderContent()}
           </div>
           <button
             ref={menuButtonRef}
-            className="fixed bottom-4 right-4 w-12 h-12 bg-custom-gray bg-opacity-50 backdrop-blur-3xl rounded-full flex items-center justify-center"
+            className="fixed bottom-4 right-4 w-12 h-12 bg-white bg-opacity-5 backdrop-blur-lg rounded-full flex items-center justify-center"
           >
-            <ion-icon name="menu" className="text-white text-xl"></ion-icon>
+            <ion-icon 
+              name="menu" 
+              style={{ fontSize: '24px', color: 'white' }}
+            ></ion-icon>
           </button>
         </div>
       </div>

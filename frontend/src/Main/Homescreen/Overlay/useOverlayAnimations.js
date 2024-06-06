@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 const useOverlayAnimations = (
@@ -7,21 +7,24 @@ const useOverlayAnimations = (
   toolbarRef,
   hamburgerButtonRef,
   isMobile,
-  onClose
+  onClose,
+  setIsMaximized
 ) => {
+  const iconRef = useRef(null);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
     gsap.fromTo(
       backgroundRef.current,
       { opacity: 0 },
-      { opacity: 0.5, duration: 0.5, ease: 'power2.out' }
+      { opacity: 1, duration: 0.5, ease: 'power2.inOut' }
     );
 
     gsap.fromTo(
       overlayRef.current,
-      { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }
+      { opacity: 0, scale: 0.8, filter: 'blur(40px)' },
+      { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.inOut' }
     );
 
     if (toolbarRef.current) {
@@ -50,13 +53,14 @@ const useOverlayAnimations = (
       scale: 0.8,
       opacity: 0,
       duration: 0.5,
-      ease: 'power2.in',
+      filter: 'blur(40px)',
+      ease: 'power2.inOut',
       onComplete: onClose,
     });
     gsap.to(backgroundRef.current, {
       opacity: 0,
       duration: 0.5,
-      ease: 'power2.in',
+      ease: 'power2.inOut',
     });
 
     if (toolbarRef.current) {
@@ -89,14 +93,24 @@ const useOverlayAnimations = (
       onComplete: () => setIsMaximized(newMaximizedState),
     });
 
-    gsap.to(buttonRef.current, {
-      backgroundColor: newMaximizedState ? '#f59e0b' : '#10b981', // yellow for maximized, green for minimized
-      duration: 0.5,
+    gsap.to(iconRef.current, {
+      opacity: 0,
+      scale: 0.5,
+      duration: 0.2,
       ease: 'power2.inOut',
+      onComplete: () => {
+        iconRef.current.name = newMaximizedState ? 'remove' : 'add';
+        gsap.to(iconRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.2,
+          ease: 'power2.inOut',
+        });
+      },
     });
   };
 
-  return { handleClose, handleMaximize };
+  return { handleClose, handleMaximize, iconRef };
 };
 
 export default useOverlayAnimations;

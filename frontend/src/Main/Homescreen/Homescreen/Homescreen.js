@@ -3,23 +3,9 @@ import { gsap } from 'gsap';
 import SmallAppIcon from '../../App Icons/SmallAppIcon';
 import OverlayWindow from '../Overlay/OverlayWindow';
 import HomescreenMobile from './HomescreenMobile';
-
-const aboutMeButtons = [
-  { title: "Info", icon: "information-circle-outline" },
-  { title: "Contact", icon: "mail-outline" },
-];
-
-const experienceButtons = [
-  { title: "Jobs", icon: "briefcase-outline" },
-  { title: "Skills", icon: "build-outline" },
-  { title: "Education", icon: "school-outline" }
-];
-
-const projectsButtons = [
-  { title: "Project 1", icon: "code-outline" },
-  { title: "Project 2", icon: "rocket-outline" },
-  { title: "Project 3", icon: "bug-outline" }
-];
+import { aboutMeButtons } from '../Categories/AboutMe';
+import { experienceButtons } from '../Categories/Experience';
+import { projectsButtons } from '../Categories/Projects';
 
 function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, closeFooter }) {
   const contentRef = useRef(null);
