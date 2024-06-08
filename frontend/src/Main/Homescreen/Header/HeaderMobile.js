@@ -50,7 +50,7 @@ const HeaderMobile = forwardRef(({ isSplashScreenGone }, ref) => {
 
   return (
     <div ref={ref}>
-      <div className="flex justify-between items-center p-2.5 bg-custom-gray bg-opacity-50 backdrop-blur-xl fixed w-full z-50 border-b border-custom-gray">
+      <div className="flex justify-between items-center p-2.5 bg-white bg-opacity-50 backdrop-blur-3xl fixed w-full z-50 border-b border-custom-gray">
         <div className="text-xl md:text-2xl font-bold text-white mx-2 whitespace-nowrap">The Experience ♛</div>
         <button 
           className="text-white text-xl md:text-2xl flex items-center justify-center"

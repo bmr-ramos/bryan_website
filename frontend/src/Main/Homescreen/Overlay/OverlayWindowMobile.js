@@ -93,7 +93,7 @@ function OverlayWindowMobile({ title, onClose, buttonData }) {
           <div className="absolute top-4 right-4 flex space-x-2">
             <button
               onClick={handleClose}
-              className="w-12 h-12 bg-white bg-opacity-15 backdrop-blur-md rounded-full flex items-center justify-center"
+              className="w-12 h-12 bg-white bg-opacity-20 backdrop-blur-3xl rounded-full flex items-center justify-center"
             >
               <ion-icon 
                 name="close"

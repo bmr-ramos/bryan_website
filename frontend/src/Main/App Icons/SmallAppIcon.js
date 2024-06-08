@@ -1,5 +1,5 @@
 import React from 'react';
-import './Outline.css';
+import './AppOutline.css';
 
 function SmallAppIcon({ title, iconSrc, iconName, iconType, iconClassName, onClick }) {
   return (
@@ -7,8 +7,8 @@ function SmallAppIcon({ title, iconSrc, iconName, iconType, iconClassName, onCli
       className="flex flex-col items-center cursor-pointer transition-transform duration-300 hover:scale-105"
       onClick={onClick}
     >
-      <div className={`icon-gradient-border ${iconClassName}`}>
-        <div className="icon-content">
+      <div className={`icon-gradient-border ${iconClassName} shadow-2xl`}>
+        <div className="bg-white bg-opacity-20 backdrop-blur-3xl rounded-full p-5 flex justify-center items-center">
           {iconType === 'ionicon' ? (
             <ion-icon name={iconName} style={{ fontSize: '60px', color: 'white' }}></ion-icon>
           ) : (
@@ -16,7 +16,7 @@ function SmallAppIcon({ title, iconSrc, iconName, iconType, iconClassName, onCli
           )}
         </div>
       </div>
-      <div className="text-sm text-white font-bold">{title}</div>
+      <div className="text-sm text-white font-bold mt-2">{title}</div>
     </div>
   );
 }

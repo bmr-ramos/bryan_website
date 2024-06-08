@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import HeaderMobile from './HeaderMobile';
-import './Header.css'; // Ensure you import the CSS file
+import './Header.css'; // Import the new CSS file
 
 function Header({ isSplashScreenGone }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -38,7 +38,7 @@ function Header({ isSplashScreenGone }) {
 
   return (
     <div ref={headerRef} className="fixed w-full z-50 flex justify-center items-center opacity-0">
-      <div className="flex flex-col sm:flex-row justify-between items-center p-3 bg-custom-gray bg-opacity-50 backdrop-blur-xl rounded-full shadow-lg header-shadow max-w-screen-lg w-full mx-4 mt-4">
+      <div className="header-outline flex flex-col sm:flex-row justify-between items-center p-3 bg-white bg-opacity-20 backdrop-blur-3xl rounded-full shadow-2xl max-w-screen-lg w-full mx-4 mt-4">
         <div className="text-xl md:text-2xl font-bold text-white mx-2 whitespace-nowrap">The Experience ♛</div>
         
         {/* Navigation links */}

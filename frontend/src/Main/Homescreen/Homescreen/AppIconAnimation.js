@@ -7,7 +7,7 @@ import { aboutMeButtons } from '../Categories/AboutMe';
 import { experienceButtons } from '../Categories/Experience';
 import { projectsButtons } from '../Categories/Projects';
 
-function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, closeFooter }) {
+function AppIconAnimation({ showSplash, isSplashScreenGone, toggleFooterVisibility, closeFooter }) {
   const contentRef = useRef(null);
   const iconsRef = useRef([]);
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -47,29 +47,53 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
     }
   }, [isSplashScreenGone, isMobile]);
 
-  const handleIconClick = (icon) => {
+  const handleIconClick = (icon, index) => {
     closeFooter(); // Close the footer if it's visible
-    setSelectedIcon(icon);
 
-    // Set button data based on the selected icon
-    switch (icon) {
-      case 'About Me':
-        setButtonData(aboutMeButtons);
-        break;
-      case 'Experience':
-        setButtonData(experienceButtons);
-        break;
-      case 'Projects':
-        setButtonData(projectsButtons);
-        break;
-      default:
-        setButtonData([]);
-    }
+    // Animate nearby icons
+    iconsRef.current.forEach((el, i) => {
+      if (i !== index) {
+        gsap.to(el, {
+          opacity: 0,
+          scale: 0.8,
+          filter: 'blur(10px)',
+          duration: 0.5,
+          ease: 'power2.inOut',
+        });
+      }
+    });
+
+    // Delay setting the selected icon to ensure the animation is visible
+    setTimeout(() => {
+      setSelectedIcon(icon);
+
+      // Set button data based on the selected icon
+      switch (icon) {
+        case 'About Me':
+          setButtonData(aboutMeButtons);
+          break;
+        case 'Experience':
+          setButtonData(experienceButtons);
+          break;
+        case 'Projects':
+          setButtonData(projectsButtons);
+          break;
+        default:
+          setButtonData([]);
+      }
+    }, 500); // 500ms delay to match the duration of the icon animation
   };
 
   const handleClose = () => {
     setSelectedIcon(null);
     setButtonData([]);
+    gsap.to(iconsRef.current, {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: 0.5,
+      ease: 'power2.inOut',
+    });
   };
 
   if (isMobile) {
@@ -79,24 +103,16 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
   return (
     <div ref={contentRef} className="pt-16 mx-auto opacity-0 flex flex-col items-center justify-center min-h-screen">
       <div className="home-content grid grid-cols-2 md:grid-cols-4 gap-10">
-        <div ref={(el) => (iconsRef.current[0] = el)}>
-          <SmallAppIcon title="About Me" iconName="happy" iconType="ionicon" onClick={() => handleIconClick('About Me')} />
-        </div>
-        <div ref={(el) => (iconsRef.current[1] = el)}>
-          <SmallAppIcon title="Experience" iconName="briefcase" iconType="ionicon" onClick={() => handleIconClick('Experience')} />
-        </div>
-        <div ref={(el) => (iconsRef.current[2] = el)}>
-          <SmallAppIcon title="Projects" iconName="brush" iconType="ionicon" onClick={() => handleIconClick('Projects')} />
-        </div>
-        <div ref={(el) => (iconsRef.current[3] = el)}>
-          <SmallAppIcon title="Contact" iconName="chatbubbles" iconType="ionicon" onClick={() => handleIconClick('Contact')} />
-        </div>
-        <div ref={(el) => (iconsRef.current[4] = el)}>
-          <SmallAppIcon title="Spotify Web Player" iconName="musical-note" iconType="ionicon" onClick={() => handleIconClick('Contact')} />
-        </div>
-        <div ref={(el) => (iconsRef.current[5] = el)}>
-          <SmallAppIcon title="Settings" iconName="cog" iconType="ionicon" onClick={() => handleIconClick('Settings')} />
-        </div>
+        {['About Me', 'Experience', 'Projects', 'Contact', 'Spotify Web Player', 'Settings'].map((title, index) => (
+          <div key={index} ref={(el) => (iconsRef.current[index] = el)}>
+            <SmallAppIcon
+              title={title}
+              iconName={title === 'About Me' ? 'happy' : title === 'Experience' ? 'briefcase' : title === 'Projects' ? 'brush' : title === 'Contact' ? 'chatbubbles' : title === 'Spotify Web Player' ? 'musical-note' : 'cog'}
+              iconType="ionicon"
+              onClick={() => handleIconClick(title, index)}
+            />
+          </div>
+        ))}
       </div>
 
       {selectedIcon && (
@@ -117,4 +133,4 @@ function Homescreen({ showSplash, isSplashScreenGone, toggleFooterVisibility, cl
   );
 }
 
-export default Homescreen;
+export default AppIconAnimation;

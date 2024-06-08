@@ -87,7 +87,7 @@ const useOverlayAnimations = (
     gsap.to(overlayRef.current, {
       width: newMaximizedState ? '100%' : '92%',
       height: newMaximizedState ? '100%' : '83.333%',
-      borderRadius: newMaximizedState ? '0px' : '8px',
+      borderRadius: newMaximizedState ? '0px' : '30px',
       duration: 0.5,
       ease: 'power2.inOut',
       onComplete: () => setIsMaximized(newMaximizedState),
@@ -107,6 +107,13 @@ const useOverlayAnimations = (
           ease: 'power2.inOut',
         });
       },
+    });
+
+    // Animate gradient border opacity
+    gsap.to(overlayRef.current.querySelector('::before'), {
+      opacity: newMaximizedState ? 0 : 1,
+      duration: 0.5,
+      ease: 'power2.inOut',
     });
   };
 

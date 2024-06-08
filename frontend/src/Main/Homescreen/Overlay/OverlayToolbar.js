@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import './OutlineToolbar.css'; // Import the new CSS file
 
 const OverlayToolbar = forwardRef(({ buttonData }, ref) => {
   const buttonCount = buttonData.length;
@@ -30,7 +31,7 @@ const OverlayToolbar = forwardRef(({ buttonData }, ref) => {
   return (
     <div
       ref={ref}
-      className={`absolute left-2 top-1/2 transform -translate-y-1/2 ${
+      className={`overlay-toolbar-outline absolute left-2 top-1/2 transform -translate-y-1/2 ${
         isHovered ? 'w-40' : 'w-14'
       } bg-white bg-opacity-20 backdrop-blur-3xl flex flex-col justify-center items-start p-2 z-40 transition-all duration-300 shadow-lg`} // Added shadow class
       style={{ height: `${toolbarHeight}px`, borderRadius: '32px' }}

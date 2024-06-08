@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import OverlayToolbar from './OverlayToolbar';
-import useOverlayAnimations from './useOverlayAnimations';
-
+import useOverlayAnimations from './OverlayAnimation';
 import AboutMe from '../Categories/AboutMe';
 import Experience from '../Categories/Experience';
 import Projects from '../Categories/Projects';
+import './Outline.css';  // Import the CSS file here
 
 function OverlayWindow({ title, onClose, buttonData }) {
   const overlayRef = useRef(null);
@@ -79,8 +79,8 @@ function OverlayWindow({ title, onClose, buttonData }) {
     }
   };
 
-  const containerClassNames = `bg-white bg-opacity-20 backdrop-blur-3xl shadow-lg ${
-    isMaximized ? 'w-full h-full' : 'w-11/12 h-5/6 rounded-lg'
+  const containerClassNames = `overlay-window bg-white bg-opacity-20 backdrop-blur-3xl shadow-2xl ${
+    isMaximized ? 'maximized w-full h-full' : 'w-11/12 h-5/6 rounded-3xl'
   } flex flex-col overflow-auto relative p-8`;
 
   return (
